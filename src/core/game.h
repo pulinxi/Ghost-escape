@@ -16,7 +16,7 @@ class Game
 {
     AssetStore* asset_store_ = nullptr; // 资源管理器
     glm::vec2 screen_size_ = glm::vec2(0); // 屏幕大小
-    
+
     glm::vec2 mouse_position_ = glm::vec2(0);
     SDL_MouseButtonFlags mouse_buttons_ = 0;
     bool is_running_ = true; // 游戏是否运行
@@ -32,7 +32,7 @@ class Game
     std::mt19937 gen_ = std::mt19937(std::random_device{}());
 
     // 私有构造函数
-    Game(){}
+    Game() {}
     // 禁止拷贝构造函数与赋值操作符
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;
@@ -55,7 +55,7 @@ public:
     glm::vec2 getScreenSize() const { return screen_size_; } // 获取屏幕大小
     Scene* getCurrentScene() const { return current_scene_; } // 获取当前场景
     AssetStore* getAssetStore() const { return asset_store_; } // 获取资源管理器
-    glm::vec2 getMousePosition() const { return mouse_position_; } // 获取鼠标位置
+    glm::vec2 getMousePosition() const { return mouse_position_; } // 获取鼠标世界坐标位置
     SDL_MouseButtonFlags getMouseButtons() const { return mouse_buttons_; } // 获取鼠标按钮
 
     // 随机数函数

@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-class Scene: public Object
+class Scene : public Object
 {
 protected:
     glm::vec2 camera_position_ = glm::vec2(0); // 相机位置
@@ -27,14 +27,20 @@ public:
     virtual void addChild(Object* child) override;
     virtual void removeChild(Object* child) override;  // 只是把容器中的元素移除容器，并没有delete该对象
 
-    glm::vec2 worldToScreen(const glm::vec2 &world_position) const {return world_position - camera_position_; }
-    glm::vec2 screenToWorld(const glm::vec2 &screen_position) const {return screen_position + camera_position_; }
+    glm::vec2 worldToScreen(const glm::vec2& world_position) const { return world_position - camera_position_; }
+    glm::vec2 screenToWorld(const glm::vec2& screen_position) const { return screen_position + camera_position_; }
 
     // getters and setters
     glm::vec2 getCameraPosition() const { return camera_position_; }
-    void setCameraPosition(const glm::vec2 &camera_position);
+    void setCameraPosition(const glm::vec2& camera_position);
     glm::vec2 getWorldSize() const { return world_size_; }
-    void setWorldSize(const glm::vec2 &world_size) { world_size_ = world_size; }
+    void setWorldSize(const glm::vec2& world_size) { world_size_ = world_size; }
+    std::vector<ObjectScreen*>& getChildrenScreen() { return children_screen_; }
+    std::vector<ObjectWorld*>& getChildrenWorld() { return children_world_; }
+
+
+
+
 };
 
 

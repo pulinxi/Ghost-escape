@@ -46,6 +46,7 @@ add_executable(${TARGET}
                 src/enemy.cpp
                 src/main.cpp
                 src/scene_main.cpp
+                src/world/spell.cpp
                 )
 
 # 链接库
