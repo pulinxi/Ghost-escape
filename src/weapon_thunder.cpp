@@ -25,10 +25,15 @@ WeaponThunder* WeaponThunder::addWeaponThunderChild(Actor* parent, float cool_do
 {
     auto weapon = new WeaponThunder();
     weapon->init();
-    weapon->setParent(parent);
+
     weapon->setCoolDown(cool_down);
     weapon->setManaCost(mana_cost);
-    if (parent) parent->safeAddChild(weapon);
+    if (parent)
+    {
+        weapon->setParent(parent);
+        parent->safeAddChild(weapon);
+    }
+
     return weapon;
 
 }

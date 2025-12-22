@@ -2,6 +2,7 @@
 #include "core/scene.h"
 #include "affiliate/collider.h"
 #include "raw/stats.h"
+#include "affiliate/affiliate_bar.h"
 
 Enemy* Enemy::addEnemyChild(Object* parent, glm::vec2 pos, Player* target)
 {
@@ -26,6 +27,13 @@ void Enemy::init()
     current_anim_ = anim_normal_;
     collider_ = Collider::addColliderChild(this, current_anim_->getSize());
     stats_ = Stats::addStatsChild(this);
+
+
+    auto size = anim_normal_->getSize();
+    health_bar_ = AffiliateBar::addAffiliateBarChild(this, glm::vec2(size.x, 10), Anchor::BOTTOM_CENTER);
+    health_bar_->setOffset(health_bar_->getOffset() + glm::vec2(0, size.y / 2.0f - 5.0f));
+
+
     setType(ObjectType::ENEMY);
 }
 

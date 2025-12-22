@@ -7,17 +7,18 @@
 
 void Game::run()
 {
-    while (is_running_){
+    while (is_running_) {
         auto start = SDL_GetTicksNS();
         handleEvents();
         update(dt_);
         render();
         auto end = SDL_GetTicksNS();
         auto elapsed = end - start;
-        if (elapsed < frame_delay_){
+        if (elapsed < frame_delay_) {
             SDL_DelayNS(frame_delay_ - elapsed);
             dt_ = frame_delay_ / 1.0e9;
-        }else{
+        }
+        else {
             dt_ = elapsed / 1.0e9;
         }
         // SDL_Log("FPS: %f", 1.0 / dt_);
@@ -28,15 +29,15 @@ void Game::init(std::string title, int width, int height)
 {
     screen_size_ = glm::vec2(width, height);
     // SDL3初始化
-    if (!SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO)){
+    if (!SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO)) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL初始化失败: %s\n", SDL_GetError());
     }
     // 不需要进行SDL_image初始化
     // SDL3_Mixer初始化
-    if (Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG) != (MIX_INIT_MP3 | MIX_INIT_OGG)){
+    if (Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG) != (MIX_INIT_MP3 | MIX_INIT_OGG)) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Mixer初始化失败: %s\n", SDL_GetError());
     }
-    if (!Mix_OpenAudio(0, NULL)){
+    if (!Mix_OpenAudio(0, NULL)) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_Mixer打开音频失败: %s\n", SDL_GetError());
     }
     Mix_AllocateChannels(16); // 分配16个音频通道
@@ -44,12 +45,12 @@ void Game::init(std::string title, int width, int height)
     Mix_Volume(-1, MIX_MAX_VOLUME / 4); // 设置音效音量
 
     // SDL3_TTF初始化
-    if (!TTF_Init()){
+    if (!TTF_Init()) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "SDL_TTF初始化失败: %s\n", SDL_GetError());
     }
     // 创建窗口与渲染器
     SDL_CreateWindowAndRenderer(title.c_str(), width, height, SDL_WINDOW_RESIZABLE, &window_, &renderer_);
-    if (!window_ || !renderer_){
+    if (!window_ || !renderer_) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "创建窗口或渲染器失败: %s\n", SDL_GetError());
     }
     // 设置窗口逻辑分辨率
@@ -70,8 +71,8 @@ void Game::init(std::string title, int width, int height)
 void Game::handleEvents()
 {
     SDL_Event event;
-    while (SDL_PollEvent(&event)){
-        switch (event.type){
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
         case SDL_EVENT_QUIT:
             is_running_ = false;
             break;
@@ -97,21 +98,21 @@ void Game::render()
 
 void Game::clean()
 {
-    if (current_scene_){
+    if (current_scene_) {
         current_scene_->clean();
         delete current_scene_;
     }
 
-    if (asset_store_){
+    if (asset_store_) {
         asset_store_->clean();
         delete asset_store_;
     }
 
     // 释放渲染器和窗口
-    if (renderer_){
+    if (renderer_) {
         SDL_DestroyRenderer(renderer_);
     }
-    if (window_){
+    if (window_) {
         SDL_DestroyWindow(window_);
     }
     // 退出Mix
@@ -123,7 +124,7 @@ void Game::clean()
     SDL_Quit();
 }
 
-void Game::renderTexture(const Texture &texture, const glm::vec2 &position, const glm::vec2 &size)
+void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size)
 {
     SDL_FRect dst_rect = {
         position.x,
@@ -134,7 +135,7 @@ void Game::renderTexture(const Texture &texture, const glm::vec2 &position, cons
     SDL_RenderTextureRotated(renderer_, texture.texture, &texture.src_rect, &dst_rect, texture.angle, nullptr, texture.is_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 
-void Game::renderFillCircle(const glm::vec2 &position, const glm::vec2& size, float alpha)
+void Game::renderFillCircle(const glm::vec2& position, const glm::vec2& size, float alpha)
 {
     auto texture = asset_store_->getImage("assets/UI/circle.png");
     SDL_FRect dst_rect = {
@@ -144,22 +145,44 @@ void Game::renderFillCircle(const glm::vec2 &position, const glm::vec2& size, fl
     SDL_RenderTexture(renderer_, texture, NULL, &dst_rect);
 }
 
-void Game::drawGrid(const glm::vec2 &top_left, const glm::vec2 &botton_right, float grid_width, SDL_FColor fcolor)
+void Game::renderHBar(const glm::vec2& position, const glm::vec2& size, float percent, SDL_FColor color)
+{
+    SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
+    SDL_FRect boundary_rect =
+    {
+        position.x,
+        position.y,
+        size.x,
+        size.y
+    };
+    SDL_FRect fill_rect =
+    {
+        position.x,
+        position.y,
+        size.x * percent,
+        size.y
+    };
+    SDL_RenderRect(renderer_, &boundary_rect);
+    SDL_RenderFillRect(renderer_, &fill_rect);
+    SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
+}
+
+void Game::drawGrid(const glm::vec2& top_left, const glm::vec2& botton_right, float grid_width, SDL_FColor fcolor)
 {
     SDL_SetRenderDrawColorFloat(renderer_, fcolor.r, fcolor.g, fcolor.b, fcolor.a);
-    for (float x = top_left.x; x <= botton_right.x; x += grid_width){
+    for (float x = top_left.x; x <= botton_right.x; x += grid_width) {
         SDL_RenderLine(renderer_, x, top_left.y, x, botton_right.y);
     }
-    for (float y = top_left.y; y <= botton_right.y; y += grid_width){
+    for (float y = top_left.y; y <= botton_right.y; y += grid_width) {
         SDL_RenderLine(renderer_, top_left.x, y, botton_right.x, y);
     }
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
 }
 
-void Game::drawBoundary(const glm::vec2 &top_left, const glm::vec2 &botton_right, float boundary_width, SDL_FColor fcolor)
+void Game::drawBoundary(const glm::vec2& top_left, const glm::vec2& botton_right, float boundary_width, SDL_FColor fcolor)
 {
     SDL_SetRenderDrawColorFloat(renderer_, fcolor.r, fcolor.g, fcolor.b, fcolor.a);
-    for (float i = 0; i < boundary_width; i++){
+    for (float i = 0; i < boundary_width; i++) {
         SDL_FRect rect = {
             top_left.x - i,
             top_left.y - i,

@@ -49,7 +49,7 @@ add_executable(${TARGET}
                 src/world/spell.cpp
                 src/raw/weapon.cpp
                 src/weapon_thunder.cpp
-                
+                src/affiliate/affiliate_bar.cpp
                 )
 
 # 链接库
