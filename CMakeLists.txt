@@ -47,6 +47,9 @@ add_executable(${TARGET}
                 src/main.cpp
                 src/scene_main.cpp
                 src/world/spell.cpp
+                src/raw/weapon.cpp
+                src/weapon_thunder.cpp
+                
                 )
 
 # 链接库

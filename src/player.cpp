@@ -15,7 +15,9 @@ void Player::init()
     collider_ = Collider::addColliderChild(this, sprite_idle_->getSize() / 2.0f);
     stats_ = Stats::addStatsChild(this);
     effect_ = Effect::addEffectChild(nullptr, "assets/effect/1764.png", glm::vec2(0), 2.0f);
-    
+    weapon_thunder_ = WeaponThunder::addWeaponThunderChild(this, 1.0f, 40.0f);
+
+
 }
 
 void Player::handleEvents(SDL_Event& event)
@@ -47,16 +49,16 @@ void Player::clean()
 void Player::keyboardControl()
 {
     auto currentKeyStates = SDL_GetKeyboardState(NULL);
-    if (currentKeyStates[SDL_SCANCODE_W]){
+    if (currentKeyStates[SDL_SCANCODE_W]) {
         velocity_.y = -max_speed_;
     }
-    if (currentKeyStates[SDL_SCANCODE_S]){
+    if (currentKeyStates[SDL_SCANCODE_S]) {
         velocity_.y = max_speed_;
     }
-    if (currentKeyStates[SDL_SCANCODE_A]){
+    if (currentKeyStates[SDL_SCANCODE_A]) {
         velocity_.x = -max_speed_;
     }
-    if (currentKeyStates[SDL_SCANCODE_D]){
+    if (currentKeyStates[SDL_SCANCODE_D]) {
         velocity_.x = max_speed_;
     }
 }
@@ -68,17 +70,18 @@ void Player::syncCamera()
 
 void Player::checkState()
 {
-    
-    if (velocity_.x < 0){
+
+    if (velocity_.x < 0) {
         sprite_move_->setFlip(true);
         sprite_idle_->setFlip(true);
-    }else{
+    }
+    else {
         sprite_move_->setFlip(false);
         sprite_idle_->setFlip(false);
     }
-    
+
     bool new_is_moving = (glm::length(velocity_) > 0.1f);
-    if (new_is_moving != is_moving_){
+    if (new_is_moving != is_moving_) {
         is_moving_ = new_is_moving;
         changeState(is_moving_);
     }
@@ -86,13 +89,14 @@ void Player::checkState()
 
 void Player::changeState(bool is_moving)
 {
-    if (is_moving){
+    if (is_moving) {
         sprite_idle_->setActive(false);
         sprite_move_->setActive(true);
         sprite_move_->setCurrentFrame(sprite_idle_->getCurrentFrame());
         sprite_move_->setFrameTimer(sprite_idle_->getFrameTimer());
-        
-    }else{
+
+    }
+    else {
         sprite_idle_->setActive(true);
         sprite_move_->setActive(false);
         sprite_idle_->setCurrentFrame(sprite_move_->getCurrentFrame());
@@ -102,7 +106,7 @@ void Player::changeState(bool is_moving)
 
 void Player::checkIsDead()
 {
-    if (!stats_->getIsAlive()){
+    if (!stats_->getIsAlive()) {
         game_.getCurrentScene()->safeAddChild(effect_);
         effect_->setPosition(getPosition());
         setActive(false);
