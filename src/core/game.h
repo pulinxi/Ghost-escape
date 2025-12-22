@@ -65,7 +65,7 @@ public:
     glm::ivec2 randomIVec2(const glm::ivec2& min, const glm::ivec2& max) { return glm::ivec2(randomInt(min.x, max.x), randomInt(min.y, max.y)); }
 
     // 渲染函数
-    void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size); // 渲染纹理
+    void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask = glm::vec2(1.0f)); // 渲染纹理
     void renderFillCircle(const glm::vec2& position, const glm::vec2& size, float alpha);
     void renderHBar(const glm::vec2& position, const glm::vec2& size, float percent, SDL_FColor color);
 

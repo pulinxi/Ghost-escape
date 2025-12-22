@@ -50,6 +50,7 @@ add_executable(${TARGET}
                 src/raw/weapon.cpp
                 src/weapon_thunder.cpp
                 src/affiliate/affiliate_bar.cpp
+                src/screen/hud_stats.cpp
                 )
 
 # 链接库
