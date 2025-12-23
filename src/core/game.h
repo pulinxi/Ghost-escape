@@ -28,6 +28,7 @@ class Game
 
     SDL_Window* window_ = nullptr; // 窗口
     SDL_Renderer* renderer_ = nullptr; // 渲染器
+    TTF_TextEngine* ttf_engine_ = nullptr; // 文本渲染引擎
 
     std::mt19937 gen_ = std::mt19937(std::random_device{}());
 
@@ -68,6 +69,9 @@ public:
     void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask = glm::vec2(1.0f)); // 渲染纹理
     void renderFillCircle(const glm::vec2& position, const glm::vec2& size, float alpha);
     void renderHBar(const glm::vec2& position, const glm::vec2& size, float percent, SDL_FColor color);
+
+    //文字函数
+    TTF_Text* createTTF_Text(const std::string& text, const std::string& font_path, int font_size = 16);
 
     // 工具函数
     void drawGrid(const glm::vec2& top_left, const glm::vec2& botton_right, float grid_width, SDL_FColor fcolor); // 绘制网格

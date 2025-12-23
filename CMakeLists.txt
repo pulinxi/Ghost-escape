@@ -52,6 +52,7 @@ add_executable(${TARGET}
                 src/affiliate/affiliate_bar.cpp
                 src/screen/hud_stats.cpp
                 src/screen/hud_skill.cpp
+                src/affiliate/text_label.cpp
                 )
 
 # 链接库

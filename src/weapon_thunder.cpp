@@ -20,7 +20,7 @@ void WeaponThunder::handleEvents(SDL_Event& event)
             if (canAttack())
             {
                 auto pos = game_.getMousePosition() + game_.getCurrentScene()->getCameraPosition();
-                auto spell = Spell::addSpellChild(nullptr, "assets/effect/Thunderstrike w blur.png", pos, 40.0f, 3.0f, Anchor::CENTER);
+                auto spell = Spell::addSpellChild(nullptr, "assets/effect/Thunderstrike w blur.png", pos, 40.0f, 5.0f, Anchor::CENTER);
                 attack(pos, spell);
             }
         }
