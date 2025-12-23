@@ -51,6 +51,7 @@ add_executable(${TARGET}
                 src/weapon_thunder.cpp
                 src/affiliate/affiliate_bar.cpp
                 src/screen/hud_stats.cpp
+                src/screen/hud_skill.cpp
                 )
 
 # 链接库
