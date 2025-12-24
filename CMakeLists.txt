@@ -54,6 +54,7 @@ add_executable(${TARGET}
                 src/screen/hud_skill.cpp
                 src/affiliate/text_label.cpp
                 src/screen/hud_text.cpp
+                src/scene_title.cpp
                 )
 
 # 链接库

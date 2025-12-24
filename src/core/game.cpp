@@ -4,6 +4,7 @@
 #include "object_world.h"
 #include "actor.h"
 #include "../affiliate/sprite.h"
+#include "../scene_title.h"
 
 void Game::run()
 {
@@ -68,7 +69,7 @@ void Game::init(std::string title, int width, int height)
 
 
     // 创建场景
-    current_scene_ = new SceneMain();
+    current_scene_ = new SceneTitle();
     current_scene_->init();
 }
 
