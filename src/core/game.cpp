@@ -207,6 +207,15 @@ TTF_Text* Game::createTTF_Text(const std::string& text, const std::string& font_
     return TTF_CreateText(ttf_engine_, font, text.c_str(), 0);
 }
 
+bool Game::isMouseInRect(const glm::vec2& top_left, const glm::vec2& button_right)
+{
+    if (mouse_position_.x >= top_left.x && mouse_position_.x <= button_right.x && mouse_position_.y >= top_left.y && mouse_position_.y <= button_right.y)
+    {
+        return true;
+    }
+    return false;
+}
+
 void Game::drawGrid(const glm::vec2& top_left, const glm::vec2& botton_right, float grid_width, SDL_FColor fcolor)
 {
     SDL_SetRenderDrawColorFloat(renderer_, fcolor.r, fcolor.g, fcolor.b, fcolor.a);

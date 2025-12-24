@@ -1,5 +1,6 @@
 #include "scene_title.h"
 #include "screen/hud_text.h"
+#include "screen/hud_button.h"
 #include "cmath"
 
 
@@ -13,7 +14,7 @@ void SceneTitle::init()
     auto score_text = "最高分" + std::to_string(game_.getHighScore());
     HUDText::addHUDTextChild(this, score_text, game_.getScreenSize() / 2.0f + glm::vec2(0.0f, 100.0f), glm::vec2(200.0f, 50.0f), "assets/font/VonwaonBitmap-16px.ttf", 32);
 
-
+    button_quit_ = HUDButton::addHUDButtonChild(this, game_.getScreenSize() / 2.0f + glm::vec2(200.0f, 200.0f), "assets/UI/A_Quit1.png", "assets/UI/A_Quit2.png", "assets/UI/A_Quit3.png", 2.0f);
 
 
 }
@@ -29,6 +30,7 @@ void SceneTitle::update(float dt)
     Scene::update(dt);
     color_timer_ += dt;
     updateColor();
+    checkButtonQuit();
 
 }
 
@@ -55,4 +57,12 @@ void SceneTitle::updateColor()
     boundary_color_.b = 0.5f + 0.5f * sinf(2.0f * color_timer_ * 0.4f);
 
 
+}
+
+void SceneTitle::checkButtonQuit()
+{
+    if (button_quit_->getIsTrigger())
+    {
+        game_.quit();
+    }
 }

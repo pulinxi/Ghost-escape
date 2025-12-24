@@ -55,6 +55,7 @@ add_executable(${TARGET}
                 src/affiliate/text_label.cpp
                 src/screen/hud_text.cpp
                 src/scene_title.cpp
+                src/screen/hud_button.cpp
                 )
 
 # 链接库
