@@ -66,6 +66,7 @@ void HUDButton::checkHover()
     if (new_hover != is_hover_)
     {
         is_hover_ = new_hover;
+        game_.setCurcorStyle(!is_hover_);
         if (is_hover_ && !is_press_) game_.palySound("assets/sound/UI_button12.wav");
     }
 }

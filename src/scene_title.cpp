@@ -8,6 +8,7 @@
 
 void SceneTitle::init()
 {
+    SDL_HideCursor();
     Scene::init();
     auto size = glm::vec2(game_.getScreenSize().x / 2.0f, game_.getScreenSize().y / 3.0f);
     HUDText::addHUDTextChild(this, "幽 灵 逃 生", game_.getScreenSize() / 2.0f - glm::vec2(0.0f, 100.0f), size, "assets/font/VonwaonBitmap-16px.ttf", 64);
@@ -15,6 +16,7 @@ void SceneTitle::init()
     HUDText::addHUDTextChild(this, score_text, game_.getScreenSize() / 2.0f + glm::vec2(0.0f, 100.0f), glm::vec2(200.0f, 50.0f), "assets/font/VonwaonBitmap-16px.ttf", 32);
 
     button_quit_ = HUDButton::addHUDButtonChild(this, game_.getScreenSize() / 2.0f + glm::vec2(200.0f, 200.0f), "assets/UI/A_Quit1.png", "assets/UI/A_Quit2.png", "assets/UI/A_Quit3.png", 2.0f);
+    ui_mouse_ = UIMouse::addUIMouseChild(this, "assets/UI/choose.png", "assets/UI/httpchoose.png", 0.5f, Anchor::CENTER);
 
 
 }

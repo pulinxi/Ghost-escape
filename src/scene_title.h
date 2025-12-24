@@ -3,6 +3,7 @@
 
 
 #include "core/scene.h"
+#include "screen/ui_mouse.h"
 
 
 class HUDButton;
@@ -15,6 +16,7 @@ protected:
     float color_timer_ = 0.0f;
 
 
+    UIMouse* ui_mouse_ = nullptr;
     HUDButton* button_start_ = nullptr;
     HUDButton* button_credits_ = nullptr;
     HUDButton* button_quit_ = nullptr;
