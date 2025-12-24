@@ -12,17 +12,26 @@ UIMouse* UIMouse::addUIMouseChild(Object* parent, const std::string& file_path1,
 
 void UIMouse::update(float dt)
 {
-    timer_ += dt;
-    if (timer_ < 1.0f) {
+    //原视频鼠标指针切换逻辑
+    // timer_ += dt;
+    // if (timer_ < 1.0f) {
+    //     sprite1_->setActive(true);
+    //     sprite2_->setActive(false);
+    // }
+    // else if (timer_ < 2.0f) {
+    //     sprite1_->setActive(false);
+    //     sprite2_->setActive(true);
+    // }
+    // else {
+    //     timer_ = 0;
+    // }
+    if (game_.getCurcorStyle()) {
         sprite1_->setActive(true);
         sprite2_->setActive(false);
     }
-    else if (timer_ < 2.0f) {
+    else {
         sprite1_->setActive(false);
         sprite2_->setActive(true);
-    }
-    else {
-        timer_ = 0;
     }
     setRenderPosition(game_.getMousePosition());
 }

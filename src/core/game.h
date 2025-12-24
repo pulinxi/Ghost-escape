@@ -17,6 +17,8 @@ class Game
     AssetStore* asset_store_ = nullptr; // 资源管理器
     glm::vec2 screen_size_ = glm::vec2(0); // 屏幕大小
 
+    bool curcor_style_ = true;//用来设置鼠标指针用哪张图,true代表正常状态，false代表攻击状态
+
     glm::vec2 mouse_position_ = glm::vec2(0);
     SDL_MouseButtonFlags mouse_buttons_ = 0;
     bool is_running_ = true; // 游戏是否运行
@@ -66,6 +68,8 @@ public:
     int getScore() const { return score_; }
     void setHighScore(int highscore) { high_score_ = highscore; }
     int getHighScore() const { return high_score_; }
+    void setCurcorStyle(bool curcor_style) { curcor_style_ = curcor_style; }
+    bool getCurcorStyle() const { return curcor_style_; }
 
 
     //加分

@@ -9,7 +9,7 @@ class UIMouse : public ObjectScreen
 protected:
     Sprite* sprite1_ = nullptr;
     Sprite* sprite2_ = nullptr;
-    float timer_ = 0;
+    //float timer_ = 0;
 public:
     static UIMouse* addUIMouseChild(Object* parent, const std::string& file_path1, const std::string& file_path2, float scale = 1.0f, Anchor anchor = Anchor::CENTER);
     virtual void update(float dt) override;

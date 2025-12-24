@@ -18,7 +18,15 @@ Spell* Spell::addSpellChild(Object* parent, const std::string& file_path, glm::v
 void Spell::update(float dt)
 {
     ObjectWorld::update(dt);
-    if (sprite_->getFinish()) need_remove_ = true;
+    if (sprite_->getFinish())
+    {
+        need_remove_ = true;
+        game_.setCurcorStyle(true);
+    }
+    else
+    {
+        game_.setCurcorStyle(false);
+    }
     attack();
 }
 

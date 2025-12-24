@@ -12,7 +12,7 @@ protected:
     Actor* parent_ = nullptr;
     float cool_down_ = 1.0f;
     float mana_cost_ = 0.0f;
-    float cool_down_timer_ = 0.0f;
+    float cool_down_timer_ = 1.0f;
 
 
 
