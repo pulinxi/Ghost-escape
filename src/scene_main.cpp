@@ -11,6 +11,7 @@
 void SceneMain::init()
 {
     SDL_HideCursor();
+    game_.playMusic("assets/bgm/OhMyGhost.ogg");
     world_size_ = game_.getScreenSize() * 3.0f;
     camera_position_ = world_size_ / 2.0f - game_.getScreenSize() / 2.0f;
     player_ = new Player();
@@ -25,7 +26,7 @@ void SceneMain::init()
 
     hud_stats_ = HUDStats::addHUDStatsChild(this, player_, glm::vec2(30.0f));
     hud_text_score_ = HUDText::addHUDTextChild(this, "Score: 0", glm::vec2(game_.getScreenSize().x - 120.0f, 30.0f), glm::vec2(200.0f, 50.0f));
-    ui_mouse_ = UIMouse::addUIMouseChild(this, "assets/UI/29.png", "assets/UI/30.png", 1.0f, Anchor::CENTER);
+    ui_mouse_ = UIMouse::addUIMouseChild(this, "assets/UI/choose.png", "assets/UI/httpchoose.png", 0.5f, Anchor::CENTER);
 
 
 

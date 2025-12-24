@@ -47,6 +47,13 @@ void Player::clean()
     Actor::clean();
 }
 
+void Player::takeDamage(float damage)
+{
+    if (!stats_ || stats_->getInvincible()) return;
+    Actor::takeDamage(damage);
+    game_.palySound("assets/sound/hit-flesh-02-266309.mp3");
+}
+
 void Player::keyboardControl()
 {
     auto currentKeyStates = SDL_GetKeyboardState(NULL);
@@ -111,5 +118,6 @@ void Player::checkIsDead()
         game_.getCurrentScene()->safeAddChild(effect_);
         effect_->setPosition(getPosition());
         setActive(false);
+        game_.palySound("assets/sound/female-scream-02-89290.mp3");
     }
 }

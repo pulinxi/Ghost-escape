@@ -1,6 +1,6 @@
 #include "ui_mouse.h"
 
-UIMouse *UIMouse::addUIMouseChild(Object *parent, const std::string &file_path1, const std::string &file_path2, float scale, Anchor anchor)
+UIMouse* UIMouse::addUIMouseChild(Object* parent, const std::string& file_path1, const std::string& file_path2, float scale, Anchor anchor)
 {
     auto ui_mouse = new UIMouse();
     ui_mouse->init();
@@ -13,13 +13,15 @@ UIMouse *UIMouse::addUIMouseChild(Object *parent, const std::string &file_path1,
 void UIMouse::update(float dt)
 {
     timer_ += dt;
-    if (timer_ < 0.3f) {
+    if (timer_ < 1.0f) {
         sprite1_->setActive(true);
         sprite2_->setActive(false);
-    } else if (timer_ < 0.6f) {
+    }
+    else if (timer_ < 2.0f) {
         sprite1_->setActive(false);
         sprite2_->setActive(true);
-    } else {
+    }
+    else {
         timer_ = 0;
     }
     setRenderPosition(game_.getMousePosition());
