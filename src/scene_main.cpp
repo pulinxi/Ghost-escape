@@ -6,6 +6,7 @@
 #include "screen/ui_mouse.h"
 #include "world/spell.h"
 #include "screen/hud_stats.h"
+#include "screen/hud_text.h"
 
 void SceneMain::init()
 {
@@ -22,8 +23,10 @@ void SceneMain::init()
     spawner_->setTarget(player_);
     addChild(spawner_);
 
-    ui_mouse_ = UIMouse::addUIMouseChild(this, "assets/UI/29.png", "assets/UI/30.png", 1.0f, Anchor::CENTER);
     hud_stats_ = HUDStats::addHUDStatsChild(this, player_, glm::vec2(30.0f));
+    hud_text_score_ = HUDText::addHUDTextChild(this, "Score: 0", glm::vec2(game_.getScreenSize().x - 120.0f, 30.0f), glm::vec2(200.0f, 50.0f));
+    ui_mouse_ = UIMouse::addUIMouseChild(this, "assets/UI/29.png", "assets/UI/30.png", 1.0f, Anchor::CENTER);
+
 
 
 
@@ -39,6 +42,7 @@ void SceneMain::handleEvents(SDL_Event& event)
 void SceneMain::update(float dt)
 {
     Scene::update(dt);
+    updateScore();
 }
 
 void SceneMain::render()
@@ -58,4 +62,9 @@ void SceneMain::renderBackground()
     auto end = world_size_ - camera_position_;
     game_.drawGrid(start, end, 80.0f, { 0.5, 0.5, 0.5, 1.0 });
     game_.drawBoundary(start, end, 5.0f, { 1.0, 1.0, 1.0, 1.0 });
+}
+
+void SceneMain::updateScore()
+{
+    hud_text_score_->setText("Score: " + std::to_string(game_.getScore()));
 }

@@ -26,6 +26,10 @@ class Game
     Uint64 frame_delay_ = 0; // 帧延迟，单位ns
     float dt_ = 0.0f; // 帧间隔
 
+    //得分
+    int score_ = 0;
+    int high_score_ = 0;//最高分
+
     SDL_Window* window_ = nullptr; // 窗口
     SDL_Renderer* renderer_ = nullptr; // 渲染器
     TTF_TextEngine* ttf_engine_ = nullptr; // 文本渲染引擎
@@ -58,6 +62,14 @@ public:
     AssetStore* getAssetStore() const { return asset_store_; } // 获取资源管理器
     glm::vec2 getMousePosition() const { return mouse_position_; } // 获取鼠标世界坐标位置
     SDL_MouseButtonFlags getMouseButtons() const { return mouse_buttons_; } // 获取鼠标按钮
+    void setScore(int score);  //设置分数的同时设置最高分
+    int getScore() const { return score_; }
+    void setHighScore(int highscore) { high_score_ = highscore; }
+    int getHighScore() const { return high_score_; }
+
+
+    //加分
+    void addScore(int score);
 
     // 随机数函数
     float randomFloat(float min, float max) { return std::uniform_real_distribution<float>(min, max)(gen_); }

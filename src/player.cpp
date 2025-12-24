@@ -17,7 +17,7 @@ void Player::init()
     stats_ = Stats::addStatsChild(this);
     effect_ = Effect::addEffectChild(nullptr, "assets/effect/1764.png", glm::vec2(0), 2.0f);
     weapon_thunder_ = WeaponThunder::addWeaponThunderChild(this, 1.0f, 20.0f);
-    TextLabel::addTextLabelChild(this, "这是叔叔sheksdfh", "assets/font/VonwaonBitmap-16px.ttf", 16);
+
 
 }
 
