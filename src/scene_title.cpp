@@ -51,13 +51,20 @@ void SceneTitle::update(float dt)
 {
     color_timer_ += dt;
     updateColor();
-
+    Scene::update(dt);
     if (credits_text_->getActive())
     {
+        button_credits_->setActive(false);
+        button_quit_->setActive(false);
+        button_start_->setActive(false);
         return;
     }
-    Scene::update(dt);
-
+    else
+    {
+        button_credits_->setActive(true);
+        button_quit_->setActive(true);
+        button_start_->setActive(true);
+    }
     checkButtonQuit();
     checkButtonStart();
     checkButtonCredits();
