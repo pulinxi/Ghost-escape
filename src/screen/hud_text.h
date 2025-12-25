@@ -30,6 +30,7 @@ public:
     TextLabel* getTextLabel() const { return text_label_; }
     Sprite* getSpriteBg() const { return sprite_bg_; }
     void setSize(const glm::vec2& size);
+    void setBgSizeBysText(float margin = 50.0f);
 
 
     void setText(const std::string& text) { text_label_->setText(text); }

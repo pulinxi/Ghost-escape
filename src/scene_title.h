@@ -7,6 +7,7 @@
 
 
 class HUDButton;
+class HUDText;
 class SceneTitle : public Scene
 {
 
@@ -20,6 +21,7 @@ protected:
     HUDButton* button_start_ = nullptr;
     HUDButton* button_credits_ = nullptr;
     HUDButton* button_quit_ = nullptr;
+    HUDText* credits_text_ = nullptr;
 
 
 public:
@@ -36,6 +38,7 @@ private:
     void updateColor();
     void checkButtonQuit();
     void checkButtonStart();
+    void checkButtonCredits();
 
 };
 

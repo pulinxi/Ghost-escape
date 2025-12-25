@@ -5,6 +5,8 @@
 #include "actor.h"
 #include "../affiliate/sprite.h"
 #include "../scene_title.h"
+#include "fstream"
+
 
 void Game::run()
 {
@@ -230,6 +232,19 @@ bool Game::isMouseInRect(const glm::vec2& top_left, const glm::vec2& button_righ
         return true;
     }
     return false;
+}
+
+std::string Game::loadTextFile(const std::string& file_path)
+{
+    std::fstream file(file_path);
+    std::string line;
+    std::string text;
+    while (std::getline(file, line))
+    {
+        text += line + "\n";
+    }
+    return text;
+
 }
 
 void Game::drawGrid(const glm::vec2& top_left, const glm::vec2& botton_right, float grid_width, SDL_FColor fcolor)

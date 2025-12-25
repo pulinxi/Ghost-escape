@@ -109,6 +109,10 @@ public:
 
     // 工具函数
     bool isMouseInRect(const glm::vec2& top_left, const glm::vec2& button_right);
+    std::string loadTextFile(const std::string& file_path);
+
+
+
 };
 
 #endif // GAME_H
