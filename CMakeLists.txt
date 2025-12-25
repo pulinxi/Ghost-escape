@@ -56,6 +56,7 @@ add_executable(${TARGET}
                 src/screen/hud_text.cpp
                 src/scene_title.cpp
                 src/screen/hud_button.cpp
+                src/raw/Timer.cpp
                 )
 
 # 链接库

@@ -30,6 +30,8 @@ public:
     void checkHover();
     void checkState();
 
+    void setScale(float scale);
+
 
 
     //getters and setters

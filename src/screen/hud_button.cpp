@@ -97,6 +97,13 @@ void HUDButton::checkState()
 
 }
 
+void HUDButton::setScale(float scale)
+{
+    sprite_hover_->setScale(scale);
+    sprite_normal_->setScale(scale);
+    sprite_press_->setScale(scale);
+}
+
 bool HUDButton::getIsTrigger()
 {
     if (is_trigger_)

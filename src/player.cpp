@@ -4,10 +4,13 @@
 #include "affiliate/collider.h"
 #include "raw/stats.h"
 #include "affiliate/text_label.h"
+#include "raw/timer.h"
 
 void Player::init()
 {
     Actor::init();
+    flash_timer_ = Timer::addTimerchild(this, 0.3f);
+    flash_timer_->start();
     max_speed_ = 500.0f;
     sprite_idle_ = SpriteAnim::addSpriteAnimChild(this, "assets/sprite/ghost-idle.png", 2.0f);
     sprite_move_ = SpriteAnim::addSpriteAnimChild(this, "assets/sprite/ghost-move.png", 2.0f);
@@ -40,6 +43,7 @@ void Player::update(float dt)
 
 void Player::render()
 {
+    if (stats_->getInvincible() && flash_timer_->getProgress() < 0.5f) return;
     Actor::render();
 }
 

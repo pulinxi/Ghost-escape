@@ -6,11 +6,14 @@
 #include "world/effect.h"
 #include "weapon_thunder.h"
 
+
+class Timer;
 class Player : public Actor
 {
     WeaponThunder* weapon_thunder_ = nullptr;
     SpriteAnim* sprite_idle_ = nullptr;
     SpriteAnim* sprite_move_ = nullptr;
+    Timer* flash_timer_ = nullptr;
     Effect* effect_ = nullptr;
     bool is_moving_ = false;
 public:

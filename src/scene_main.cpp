@@ -9,6 +9,7 @@
 #include "screen/hud_text.h"
 #include "screen/hud_button.h"
 #include "scene_title.h"
+#include "raw/timer.h"
 
 void SceneMain::init()
 {
@@ -21,6 +22,8 @@ void SceneMain::init()
     player_->init();
     player_->setPosition(world_size_ / 2.0f);
     addChild(player_);
+
+    end_timer_ = Timer::addTimerchild(this);
 
     spawner_ = new Spawner();
     spawner_->init();
@@ -56,6 +59,9 @@ void SceneMain::update(float dt)
     checkButtonRestart();
     checkButtonPause();
     checkButtonBack();
+
+    if (player_ && !player_->getActive()) end_timer_->start();
+    checkEndTimer();
 
 }
 
@@ -94,6 +100,7 @@ void SceneMain::checkButtonPause()
 void SceneMain::checkButtonRestart()
 {
     if (!button_restart_->getIsTrigger())return;
+    game_.setScore(0);
     auto scene = new SceneMain();
     game_.saveChangeScene(scene);
 
@@ -102,7 +109,20 @@ void SceneMain::checkButtonRestart()
 void SceneMain::checkButtonBack()
 {
     if (!button_back_->getIsTrigger())return;
+    game_.setScore(0);
     auto scene = new SceneTitle();
     game_.saveChangeScene(scene);
 
+}
+
+void SceneMain::checkEndTimer()
+{
+    if (!end_timer_->timeOut()) return;
+    pause();
+    button_restart_->setRenderPosition(game_.getScreenSize() / 2.0f - glm::vec2(200.0f, 0.0f));
+    button_restart_->setScale(3.0f);
+    button_back_->setRenderPosition(game_.getScreenSize() / 2.0f + glm::vec2(200.0f, 0.0f));
+    button_back_->setScale(3.0f);
+    button_pause_->setActive(false);
+    end_timer_->stop();
 }
