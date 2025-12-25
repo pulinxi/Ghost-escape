@@ -23,6 +23,7 @@ class Game
     SDL_MouseButtonFlags mouse_buttons_ = 0;
     bool is_running_ = true; // 游戏是否运行
     Scene* current_scene_ = nullptr; // 当前场景
+    Scene* next_scene_ = nullptr;   //下一个场景
 
     Uint64 FPS_ = 60; // 游戏帧率
     Uint64 frame_delay_ = 0; // 帧延迟，单位ns
@@ -75,6 +76,8 @@ public:
     //加分
     void addScore(int score);
     void quit() { is_running_ = false; }
+    void saveChangeScene(Scene* scene) { next_scene_ = scene; }
+    void changeScene(Scene* scene);
 
     //音频函数
     void playMusic(const std::string& music_path, bool loop = true) { Mix_PlayMusic(asset_store_->getMusic(music_path), loop ? -1 : 0); }//-1代表循环

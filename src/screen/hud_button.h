@@ -25,7 +25,7 @@ public:
     static HUDButton* HUDButton::addHUDButtonChild(Object* parent, glm::vec2 render_pos, const std::string& file_path1, const std::string& file_path2, const std::string& file_path3, float scale = 1.0f, Anchor anchor = Anchor::CENTER);
 
     virtual void handleEvents(SDL_Event& event) override;
-    virtual void update(float dt) override;
+    virtual void update(float) override;
 
     void checkHover();
     void checkState();
