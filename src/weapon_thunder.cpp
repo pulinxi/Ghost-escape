@@ -11,7 +11,7 @@ void WeaponThunder::init()
     hud_skill_ = HUDSkill::addHUDSkillChild(scene, "assets/UI/Electric-Icon.png", pos, 0.14f, Anchor::CENTER);
 }
 
-void WeaponThunder::handleEvents(SDL_Event& event)
+bool WeaponThunder::handleEvents(SDL_Event& event)
 {
     if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -23,11 +23,11 @@ void WeaponThunder::handleEvents(SDL_Event& event)
                 auto pos = game_.getMousePosition() + game_.getCurrentScene()->getCameraPosition();
                 auto spell = Spell::addSpellChild(nullptr, "assets/effect/Thunderstrike w blur.png", pos, 40.0f, 5.0f, Anchor::CENTER);
                 attack(pos, spell);
+                return true;
             }
         }
     }
-
-
+    return false;
 }
 
 void WeaponThunder::update(float dt)

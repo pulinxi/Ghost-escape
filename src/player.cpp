@@ -21,9 +21,10 @@ void Player::init()
 
 }
 
-void Player::handleEvents(SDL_Event& event)
+bool Player::handleEvents(SDL_Event& event)
 {
-    Actor::handleEvents(event);
+    if (Actor::handleEvents(event)) return true;
+    return false;
 }
 
 void Player::update(float dt)

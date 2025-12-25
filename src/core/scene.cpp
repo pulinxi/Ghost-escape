@@ -1,40 +1,45 @@
 #include "scene.h"
 
-void Scene::handleEvents(SDL_Event& event)
+bool Scene::handleEvents(SDL_Event& event)
 {
-    Object::handleEvents(event);
+
     for (auto& child : children_screen_)
     {
         if (child->getActive()) {
-            child->handleEvents(event);
+            if (child->handleEvents(event)) return true;
         }
     }
+    if (is_pause_) return false;
+    Object::handleEvents(event);
     for (auto& child : children_world_)
     {
         if (child->getActive()) {
-            child->handleEvents(event);
+            if (child->handleEvents(event)) return true;
         }
     }
-
+    return false;
 }
 
 void Scene::update(float dt)
 {
-    Object::update(dt);
-    for (auto it = children_world_.begin(); it != children_world_.end(); )
+    if (!is_pause_)
     {
-        auto child = *it;
-        if (child->getNeedRemove()) {
-            it = children_world_.erase(it);
-            child->clean();
-            delete child;
-            child = nullptr;
-        }
-        else {
-            if (child->getActive()) {
-                child->update(dt);
+        Object::update(dt);
+        for (auto it = children_world_.begin(); it != children_world_.end(); )
+        {
+            auto child = *it;
+            if (child->getNeedRemove()) {
+                it = children_world_.erase(it);
+                child->clean();
+                delete child;
+                child = nullptr;
             }
-            ++it;
+            else {
+                if (child->getActive()) {
+                    child->update(dt);
+                }
+                ++it;
+            }
         }
     }
     for (auto it = children_screen_.begin(); it != children_screen_.end(); )
@@ -119,6 +124,20 @@ void Scene::removeChild(Object* child)
         children_.erase(std::remove(children_.begin(), children_.end(), child), children_.end());
         break;
     }
+}
+
+void Scene::pause()
+{
+    is_pause_ = true;
+    game_.pauseSound();
+    game_.pauseMusic();
+}
+
+void Scene::resume()
+{
+    is_pause_ = false;
+    game_.resumeSound();
+    game_.resumeMusic();
 }
 
 void Scene::setCameraPosition(const glm::vec2& camera_position)
