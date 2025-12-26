@@ -5,6 +5,7 @@ BgStar* BgStar::addBgStarChild(Object* parent, int num, float scale_far, float s
 {
     BgStar* bg_star = new BgStar();
     bg_star->init();
+    bg_star->num = num;
     bg_star->scale_far_ = scale_far;
     bg_star->scale_mid_ = scale_mid;
     bg_star->scale_near_ = scale_near;
@@ -30,8 +31,8 @@ void BgStar::update(float dt)
     //更新颜色
     timer_ += dt;
     color_far_ = { 0.5f + 0.5f * sinf(timer_ * 0.9f),0.5f + 0.5f * sinf(timer_ * 0.8f),0.5f + 0.5f * sinf(timer_ * 0.7f),1 };
-    color_far_ = { 0.5f + 0.5f * sinf(timer_ * 0.8f),0.5f + 0.5f * sinf(timer_ * 0.7f),0.5f + 0.5f * sinf(timer_ * 0.6f),1 };
-    color_far_ = { 0.5f + 0.5f * sinf(timer_ * 0.7f),0.5f + 0.5f * sinf(timer_ * 0.6f),0.5f + 0.5f * sinf(timer_ * 0.5f),1 };
+    color_mid_ = { 0.5f + 0.5f * sinf(timer_ * 0.8f),0.5f + 0.5f * sinf(timer_ * 0.7f),0.5f + 0.5f * sinf(timer_ * 0.6f),1 };
+    color_near_ = { 0.5f + 0.5f * sinf(timer_ * 0.7f),0.5f + 0.5f * sinf(timer_ * 0.6f),0.5f + 0.5f * sinf(timer_ * 0.5f),1 };
 
 }
 
