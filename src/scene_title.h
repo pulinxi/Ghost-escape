@@ -32,6 +32,8 @@ public:
     virtual void clean() override;
 
 
+    virtual void loadData(const std::string& file_path) override;
+
 
 private:
     void renderBackground();

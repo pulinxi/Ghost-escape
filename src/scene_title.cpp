@@ -3,7 +3,7 @@
 #include "screen/hud_button.h"
 #include "scene_main.h"
 #include "cmath"
-
+#include <fstream>
 
 
 
@@ -11,6 +11,7 @@ void SceneTitle::init()
 {
     SDL_HideCursor();
     Scene::init();
+    loadData("assets/score.dat");
     game_.playMusic("assets/bgm/Spooky music.mp3");
     auto size = glm::vec2(game_.getScreenSize().x / 2.0f, game_.getScreenSize().y / 3.0f);
     HUDText::addHUDTextChild(this, "幽 灵 逃 生", game_.getScreenSize() / 2.0f - glm::vec2(0.0f, 100.0f), size, "assets/font/VonwaonBitmap-16px.ttf", 64);
@@ -83,6 +84,18 @@ void SceneTitle::render()
 void SceneTitle::clean()
 {
     Scene::clean();
+}
+
+void SceneTitle::loadData(const std::string& file_path)
+{
+    int score = 0;//数据文件不存在默认得分为0
+    std::ifstream file(file_path, std::ios::binary);    //binar代表以二进制的形式保存
+    if (file.is_open())
+    {
+        file.read(reinterpret_cast<char*>(&score), sizeof(score));
+        file.close();
+    }
+    game_.setHighScore(score);
 }
 
 void SceneTitle::renderBackground()

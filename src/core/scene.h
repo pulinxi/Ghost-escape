@@ -5,6 +5,7 @@
 #include "object_world.h"
 #include <glm/glm.hpp>
 #include <vector>
+#include <string>
 
 class Scene : public Object
 {
@@ -27,6 +28,10 @@ public:
 
     virtual void addChild(Object* child) override;
     virtual void removeChild(Object* child) override;  // 只是把容器中的元素移除容器，并没有delete该对象
+
+    virtual void saveData(const std::string& file_path) {}
+    virtual void loadData(const std::string& file_path) {}
+
 
     glm::vec2 worldToScreen(const glm::vec2& world_position) const { return world_position - camera_position_; }
     glm::vec2 screenToWorld(const glm::vec2& screen_position) const { return screen_position + camera_position_; }
