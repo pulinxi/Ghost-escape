@@ -9,7 +9,7 @@
 
 void SceneTitle::init()
 {
-    //SDL_HideCursor();
+    SDL_HideCursor();
     Scene::init();
     loadData("assets/score.dat");
     game_.playMusic("assets/bgm/Spooky music.mp3");

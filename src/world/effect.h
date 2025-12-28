@@ -11,8 +11,9 @@ class Effect : public ObjectWorld
     ObjectWorld* next_object_ = nullptr;        // 播放完毕后添加到场景中。
 
 public:
-    static Effect* addEffectChild(Object* parent, const std::string& file_path,glm::vec2 pos, float scale = 1.0f, ObjectWorld* next_object = nullptr);
+    static Effect* addEffectChild(Object* parent, const std::string& file_path, glm::vec2 pos, float scale = 1.0f, ObjectWorld* next_object = nullptr);
     virtual void update(float dt) override;
+    virtual void clean() override;
 
     // setters and getters
     void setSpriteAnim(SpriteAnim* sprite) { sprite_ = sprite; }

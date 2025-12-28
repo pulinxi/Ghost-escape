@@ -1,7 +1,7 @@
 #include "effect.h"
 #include "../core/scene.h"
 
-Effect *Effect::addEffectChild(Object* parent, const std::string &file_path, glm::vec2 pos, float scale, ObjectWorld *next_object)
+Effect* Effect::addEffectChild(Object* parent, const std::string& file_path, glm::vec2 pos, float scale, ObjectWorld* next_object)
 {
     auto effect = new Effect();
     effect->init();
@@ -19,14 +19,26 @@ void Effect::update(float dt)
     checkFinish();
 }
 
+void Effect::clean()
+{
+    ObjectWorld::clean();
+    if (next_object_)               //如果next_object_已经被添加到了场景中就不应该删除
+    {
+        next_object_->clean();
+        delete next_object_;
+        next_object_ = nullptr;
+    }
+}
+
 
 void Effect::checkFinish()
 {
     if (sprite_->getFinish())
     {
         need_remove_ = true;
-        if (next_object_){
+        if (next_object_) {
             game_.getCurrentScene()->safeAddChild(next_object_);
+            next_object_ = nullptr;     //这句话保证在clean时不会删除已经放在了场景中的enemy
         }
     }
 }
