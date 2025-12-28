@@ -9,7 +9,7 @@
 
 void SceneTitle::init()
 {
-    SDL_HideCursor();
+    //SDL_HideCursor();
     Scene::init();
     loadData("assets/score.dat");
     game_.playMusic("assets/bgm/Spooky music.mp3");
@@ -30,7 +30,7 @@ void SceneTitle::init()
     credits_text_->setActive(false);
 
 
-    ui_mouse_ = UIMouse::addUIMouseChild(this, "assets/UI/choose.png", "assets/UI/httpchoose.png", 0.5f, Anchor::CENTER);
+    ui_mouse_ = UIMouse::addUIMouseChild(this, "assets/UI/choose.png", "assets/UI/httpchoose.png", 0.5f, Anchor::TOP_LEFT);
 
 
 }

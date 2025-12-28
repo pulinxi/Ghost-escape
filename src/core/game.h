@@ -115,6 +115,10 @@ public:
 
 
 
+private:
+    void updateMouse();//更新鼠标显示逻辑，防止缩放屏幕之后无法正确显示鼠标位置
+
+
 };
 
 #endif // GAME_H

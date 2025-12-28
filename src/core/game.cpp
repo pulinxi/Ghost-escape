@@ -96,7 +96,7 @@ void Game::handleEvents()
 
 void Game::update(float dt)
 {
-    mouse_buttons_ = SDL_GetMouseState(&mouse_position_.x, &mouse_position_.y);
+    updateMouse();
     current_scene_->update(dt);
 }
 
@@ -244,6 +244,28 @@ std::string Game::loadTextFile(const std::string& file_path)
         text += line + "\n";
     }
     return text;
+
+}
+
+void Game::updateMouse()
+{
+    mouse_buttons_ = SDL_GetMouseState(&mouse_position_.x, &mouse_position_.y);
+
+
+    //方法一：限制比例，以防止系统鼠标与游戏鼠标不对应的问题出现
+    int w, h;
+    SDL_GetWindowSize(window_, &w, &h);
+    SDL_SetWindowAspectRatio(window_, screen_size_.x / screen_size_.y, screen_size_.x / screen_size_.y);//这个函数可以让窗口的缩放比例始终保持在某一个数值范围内，如果两个数值一样就代表始终保持某比例,可以防止用户在缩放窗口时搞出一些奇怪的比例
+    mouse_position_ *= screen_size_ / glm::vec2(w, h);
+
+
+
+    //方法二：计算系统鼠标与游戏鼠标的偏移量，以防止系统鼠标与游戏鼠标不对应的问题出现
+    // SDL_FRect rect;
+    // SDL_GetRenderLogicalPresentationRect(renderer_, &rect);//这个函数可以获取渲染器渲染的区域
+    // mouse_position_ = (mouse_position_ - glm::vec2(rect.x, rect.y)) * screen_size_ / glm::vec2(rect.w, rect.h);
+
+
 
 }
 

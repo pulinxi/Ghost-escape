@@ -46,6 +46,7 @@ private:
     void checkButtonRestart();
     void checkButtonBack();
     void checkEndTimer();
+    void checkSlowDown(float& dt);
 
 
 };

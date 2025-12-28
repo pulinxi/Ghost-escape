@@ -15,6 +15,10 @@ BgStar* BgStar::addBgStarChild(Object* parent, int num, float scale_far, float s
     auto extra = Game::GetInstance().getCurrentScene()->getWorldSize() - Game::GetInstance().getScreenSize();
     for (int i = 0;i < num;i++)
     {
+        // bg_star->star_far_.push_back(Game::GetInstance().randomVec2(glm::vec2(0), Game::GetInstance().getScreenSize() + extra * (1 - scale_far)));
+        // bg_star->star_mid_.push_back(Game::GetInstance().randomVec2(glm::vec2(0), Game::GetInstance().getScreenSize() + extra * (1 - scale_mid)));
+        // bg_star->star_near_.push_back(Game::GetInstance().randomVec2(glm::vec2(0), Game::GetInstance().getScreenSize() + extra * (1 - scale_near)));
+
         bg_star->star_far_.push_back(Game::GetInstance().randomVec2(glm::vec2(0), Game::GetInstance().getScreenSize() + extra * scale_far));
         bg_star->star_mid_.push_back(Game::GetInstance().randomVec2(glm::vec2(0), Game::GetInstance().getScreenSize() + extra * scale_mid));
         bg_star->star_near_.push_back(Game::GetInstance().randomVec2(glm::vec2(0), Game::GetInstance().getScreenSize() + extra * scale_near));
@@ -34,6 +38,10 @@ void BgStar::update(float dt)
     color_mid_ = { 0.5f + 0.5f * sinf(timer_ * 0.8f),0.5f + 0.5f * sinf(timer_ * 0.7f),0.5f + 0.5f * sinf(timer_ * 0.6f),1 };
     color_near_ = { 0.5f + 0.5f * sinf(timer_ * 0.7f),0.5f + 0.5f * sinf(timer_ * 0.6f),0.5f + 0.5f * sinf(timer_ * 0.5f),1 };
 
+    // color_far_ = { 1.0f,0.0f,0.0f,1 };
+    // color_mid_ = { 0.0f,1.0f,0.0f,1 };
+    // color_near_ = { 0.0f,0.0f,1.0f,1 };
+
 }
 
 
@@ -42,4 +50,9 @@ void BgStar::render()
     game_.drawPoints(star_far_, -game_.getCurrentScene()->getCameraPosition() * scale_far_, color_far_);
     game_.drawPoints(star_mid_, -game_.getCurrentScene()->getCameraPosition() * scale_mid_, color_mid_);
     game_.drawPoints(star_near_, -game_.getCurrentScene()->getCameraPosition() * scale_near_, color_near_);
+
+
+    // game_.drawPoints(star_far_, -game_.getCurrentScene()->getCameraPosition() * (1 - scale_far_), color_far_);
+    // game_.drawPoints(star_mid_, -game_.getCurrentScene()->getCameraPosition() * (1 - scale_mid_), color_mid_);
+    // game_.drawPoints(star_near_, -game_.getCurrentScene()->getCameraPosition() * (1 - scale_near_), color_near_);
 }

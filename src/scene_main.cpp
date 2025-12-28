@@ -27,6 +27,7 @@ void SceneMain::init()
     addChild(player_);
 
     BgStar::addBgStarChild(this, 1000, 0.2f, 0.5f, 0.7f);
+    //BgStar::addBgStarChild(this, 1000, 1.0f, 1.0f, 1.0f);
 
     end_timer_ = Timer::addTimerchild(this);
 
@@ -41,7 +42,7 @@ void SceneMain::init()
 
     hud_stats_ = HUDStats::addHUDStatsChild(this, player_, glm::vec2(30.0f));
     hud_text_score_ = HUDText::addHUDTextChild(this, "Score: 0", glm::vec2(game_.getScreenSize().x - 120.0f, 30.0f), glm::vec2(200.0f, 50.0f));
-    ui_mouse_ = UIMouse::addUIMouseChild(this, "assets/UI/choose.png", "assets/UI/httpchoose.png", 0.5f, Anchor::CENTER);
+    ui_mouse_ = UIMouse::addUIMouseChild(this, "assets/UI/choose.png", "assets/UI/httpchoose.png", 0.5f, Anchor::TOP_LEFT);
 
 
 
@@ -58,6 +59,7 @@ bool SceneMain::handleEvents(SDL_Event& event)
 
 void SceneMain::update(float dt)
 {
+    checkSlowDown(dt);
     Scene::update(dt);
     updateScore();
 
@@ -148,4 +150,12 @@ void SceneMain::checkEndTimer()
     button_back_->setScale(3.0f);
     button_pause_->setActive(false);
     end_timer_->stop();
+}
+
+void SceneMain::checkSlowDown(float& dt)
+{
+    if (game_.getMouseButtons() & SDL_BUTTON_RMASK)
+    {
+        dt *= 0.4f;
+    }
 }
