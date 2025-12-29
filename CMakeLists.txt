@@ -57,7 +57,7 @@ add_executable(${TARGET}
                 src/scene_title.cpp
                 src/screen/hud_button.cpp
                 src/raw/Timer.cpp
-                src/raw/bg_star.cpp
+                src/raw/bg_star.cpp 
                 )
 
 # 链接库
@@ -68,3 +68,10 @@ target_link_libraries(${TARGET}
                         SDL3_ttf::SDL3_ttf
                         glm::glm
                         )
+
+
+
+#运行时不弹出控制台窗口
+# if(MSVC)
+#     target_link_options(${TARGET} PRIVATE "/SUBSYSTEM:WINDOWS")
+# endif()
